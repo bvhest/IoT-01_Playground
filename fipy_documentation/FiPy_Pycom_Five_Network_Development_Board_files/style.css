@@ -1,0 +1,401 @@
+/*
+ Theme Name:     Divi Child Theme
+ Theme URI:      http://www.elegantthemes.com/gallery/divi/
+ Description:    Divi Child Theme
+ Author:         Elegant Themes
+ Author URI:     http://www.elegantthemes.com
+ Template:       Divi
+ Version:        1.0.0
+*/
+ 
+@import url("../Divi/style.css");
+ 
+/* =Theme customization starts here
+------------------------------------------------------- */
+
+/*Fonts*/
+ @import url("https://use.typekit.net/fkz1mlw.css");
+
+/*Fix overlapping on maain menu-small desktops*/
+@media only screen and (max-width: 1250px){
+	div#et-top-navigation{
+    padding-left: 40px!important;
+}	
+}
+
+/*set h1's with bebas font*/
+h1 { 
+	font-family: "bebas-neue",sans-serif !important;
+    font-size:54px!important;
+}
+
+/*set percent class on homepage with bebas font*/
+.percent {font-family: "bebas-neue",sans-serif !important;}
+
+/*Footer-copyright*/
+div#social {float: right;}
+div#social a img {
+    padding-right: 8px;
+    padding-top: 5px;
+}
+
+#footer-bottom {padding: 20px 0 0px;}
+p#footer-info {margin-left: 0px!important;}
+
+div#copyright-menu a {font-size: 12px;}
+
+@media only screen and (min-width: 1120px){
+div#copyright-menu{
+    float:right!important;
+}
+	div#copyright-menu a {
+    padding: 0px 10px 0px 10px;
+}
+}
+
+@media (max-width: 1080px){
+#footer-info, .et-social-icons {
+    float: none;
+    text-align: center!important;
+}
+}
+@media screen and (max-width: 1119px) and (min-width: 780px){
+div#copyright-menu a {
+    padding: 0px 3px 0px 3px;
+}
+}
+
+@media only screen and (min-width: 100px){
+div#copyright-menu {
+    text-align: center!important;
+    padding-bottom: 20px!important;
+}
+}
+/*Home Page*/
+
+.slider1 h2.et_pb_slide_title {
+    background-color: #ffff00!important;
+    padding: 15px!important;
+	margin-bottom: 15px;
+	display:inline-block;
+}
+
+.slider2 h2.et_pb_slide_title {
+    background-color: #00ffff!important;
+    padding: 15px!important;
+	margin-bottom: 25px!important;
+	display:inline-block;
+}
+
+/*
+meet team page + green circles title
+*/
+.meetteam h4{
+    background-color: #16ffbd;
+    display:inline-block;
+    padding: 15px;
+	margin-bottom: 25px;
+}
+
+/*meet team page white titles*/
+
+.meetteamwhite h4{
+    background-color: #fff;
+    display:inline-block;
+    padding: 15px;
+	margin-bottom: 25px;
+}
+
+/*meet team page white titles*/
+.meetteamwpurple  h4{
+    background-color:#690bd3;;
+    display:inline-block;
+    padding: 15px;
+	margin-bottom: 25px;
+}
+
+/*Support*/
+
+.support h4{
+    background-color:#ffff00;;
+    display:inline-block;
+    padding: 15px;
+	margin-bottom: 25px;
+}
+
+/*Hardware hot to get started*/
+.hardware1 h4{
+    background-color:#ffff00;;
+    display:inline-block;
+    padding: 15px;
+	margin-bottom: 25px;
+}
+
+/*how to get started + need help titles*/
+
+.network h4.et_pb_module_header {
+    background-color: #7800ff!important;
+    display:inline-block;
+    padding: 15px;
+	margin-bottom: 25px;
+}
+
+/*Accordian close*/
+.et_pb_toggle_open .et_pb_toggle_title:before {
+	display: block !important;
+	content: "\e04f";
+}
+
+/*Accordian colour text*/
+.et_pb_toggle_content.clearfix h4 {
+    color: #16ffbd!important;
+}
+
+/*shop page styling*/
+.quantity_select {
+    margin-bottom: 30px!important;
+    margin-top: -20px!important;
+}
+
+.single-product #main-content { background-color: #f1f1f1 !important;}
+
+.woocommerce-js #main-content h3 {
+   font-family: "bebas-neue",sans-serif !important;
+    font-size: 30px!important;
+}
+
+.woocommerce div.product .stock { color: #6921d0!important;}
+.woocommerce-js .woocommerce ul.products li.product a img {margin: 0 0 0px!important;}
+
+body.woocommerce #content-area div.product .woocommerce-tabs .panel, body.woocommerce div.product .woocommerce-tabs .panel {
+    background-color: #fff !important;
+}
+
+div#tab-description h2 {
+   background-color: #ffff00;
+    display:inline-block;
+    padding: 15px;
+    font-family: 'Space Mono',monospace!important;
+    font-size: 16px !important;
+    font-weight: 300;
+    line-height: 20px;
+	margin-top: 30px !important;
+	margin-bottom: 20px !important;
+}
+
+.woocommerce-product-details__short-description a {
+    color: #000 !important;
+    text-decoration: underline!important;
+}
+
+.product_meta {display: none!important;}
+
+td.value a.reset_variations { color: #171631!important;}
+
+/*Contact form colour text*/
+span.et_pb_contact_field_options_title {
+    color: white;
+    font-size: 15px!important;
+}
+
+/*Woo commerce buy button*/
+.woocommerce #respond input#submit.alt.disabled, .woocommerce #respond input#submit.alt.disabled:hover, .woocommerce #respond input#submit.alt:disabled, .woocommerce #respond input#submit.alt:disabled:hover, .woocommerce #respond input#submit.alt:disabled[disabled], .woocommerce #respond input#submit.alt:disabled[disabled]:hover, .woocommerce a.button.alt.disabled, .woocommerce a.button.alt.disabled:hover, .woocommerce a.button.alt:disabled, .woocommerce a.button.alt:disabled:hover, .woocommerce a.button.alt:disabled[disabled], .woocommerce a.button.alt:disabled[disabled]:hover, .woocommerce button.button.alt.disabled, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:disabled, .woocommerce button.button.alt:disabled:hover, .woocommerce button.button.alt:disabled[disabled], .woocommerce button.button.alt:disabled[disabled]:hover, .woocommerce input.button.alt.disabled, .woocommerce input.button.alt.disabled:hover, .woocommerce input.button.alt:disabled, .woocommerce input.button.alt:disabled:hover, .woocommerce input.button.alt:disabled[disabled], .woocommerce input.button.alt:disabled[disabled]:hover
+{background-color: #32febe;
+	padding: 13px 40px!important;
+    color: #000;
+    border: 0px;
+    font-size: 15px;
+}
+
+p.return-to-shop a.button.wc-backward, .et_button_no_icon.woocommerce-page a.button.alt:hover, .et_button_no_icon.woocommerce-page a.button:hover, .et_button_no_icon.woocommerce-page button.button, .et_button_no_icon.woocommerce-page button.button.alt, .et_button_no_icon.woocommerce-page button.button.alt:hover, .et_button_no_icon.woocommerce-page button.button:hover, .et_button_no_icon.woocommerce-page input.button, .et_button_no_icon.woocommerce-page input.button.alt, .et_button_no_icon.woocommerce-page input.button.alt:hover, .et_button_no_icon.woocommerce-page input.button:hover, .woocommerce input.button, .woocommerce input.button:hover{
+background-color: #32febe;
+    color: #1e263f!important;
+    font-size: 15px!important;
+    padding: 5px 20px!important;
+    text-decoration: underline!important;
+    border-radius: 0;
+	border: 1px solid #232244!important;
+}
+
+.woocommerce div.product form.cart .button {
+    background-color: #32febe;
+    color: #1e263f!important;
+    border: 0px;
+    font-size: 15px!important;
+    padding: 5px 20px!important;
+    text-decoration: underline!important;
+    border-radius: 0;
+}
+
+.woocommerce div.product .product_title {
+    clear: none;
+    margin-top: 0;
+    padding: 0;
+    font-family: 'Space Mono',monospace!important;
+    text-decoration: underline;
+	font-size: 40px!important;
+    margin-bottom: 30px!important;
+}
+
+span.woocommerce-Price-amount.amount { color: black!important;}
+.woocommerce-product-details__short-description { margin-top: 30px!important;}
+
+
+/*Woo commerce buy button arrow*/
+.woocommerce #content input.button.alt:after, .woocommerce #content input.button:after, .woocommerce #respond input#submit.alt:after, .woocommerce #respond input#submit:after, .woocommerce a.button.alt:after, .woocommerce a.button:after, .woocommerce button.button.alt:after, .woocommerce button.button:after, .woocommerce input.button.alt:after, .woocommerce input.button:after, .woocommerce-page #content input.button.alt:after, .woocommerce-page #content input.button:after, .woocommerce-page #respond input#submit.alt:after, .woocommerce-page #respond input#submit:after, .woocommerce-page a.button.alt:after, .woocommerce-page a.button:after, .woocommerce-page button.button.alt:after, .woocommerce-page button.button:after, .woocommerce-page input.button.alt:after, .woocommerce-page input.button:after {
+    font-size: 26px!important;
+}
+
+.woocommerce #content .quantity input.qty, .woocommerce .quantity input.qty, .woocommerce-cart table.cart td.actions .coupon .input-text, .woocommerce-page #content .quantity input.qty, .woocommerce-page .quantity input.qty {
+    height: 38px!important;
+    font-size: 15px!important;
+}
+
+.woocommerce-page div.product form.cart { margin: 40px 0 39px!important;}
+
+/*Customise category pages with background colour*/
+.woocommerce #main-content {background-color: #f5f2f2;}
+
+/*Related products*/
+.product .related h2.woocommerce-loop-product__title { font-size: 16px!important;}section.up-sells.upsells.products {
+    display: none;
+}
+
+section.up-sells.upsells.products {display: none;}
+img.attachment-woocommerce_thumbnail.size-woocommerce_thumbnail.wp-post-image {background: #f5f5f2;}
+li.product {background-color: white!important;}
+
+div#payment a {
+    color: #171730!important;
+    text-decoration: underline!important;
+}
+
+/*Description stlying*/
+td a {
+color: #692dcb!important;
+text-decoration:underline!important;
+}
+.woocommerce .woocommerce-breadcrumb a { color: #000!important;}
+
+.woocommerce ul.products li.product .woocommerce-loop-category__title, .woocommerce ul.products li.product .woocommerce-loop-product__title, .woocommerce ul.products li.product h3{
+padding: 15px 20px!important;
+}
+
+.woocommerce span.price { padding: 0px 0px 10px 20px;}
+
+div#tab-description a {
+    color: #000!important;
+    text-decoration: underline;
+}
+
+/*Footer*/
+#footer-widgets .footer-widget li {padding-left: 0px!important;}
+.et_pb_widget ul li ul li { margin-left: 0px!important;}
+
+#footer-widgets .footer-widget a, #footer-widgets .footer-widget li a, #footer-widgets .footer-widget li a:hover {
+    color: #32febe!important;
+}
+
+#main-footer .footer-widget h4 {
+    color: #ffffff;
+    font-family: "bebas-neue",sans-serif !important;
+    letter-spacing: 2px!important;
+}
+
+/*Main menu icon*/
+.icon a:after {
+	font-family: 'ETModules';
+	content : " & ";
+	margin-right: 5px;
+}
+
+/*Contact page form Button*/
+.et_contact_bottom_container button {
+    background-color: #32febe!important;
+    border-radius: 0px!important;
+}
+
+.et-pb-contact-message { color: red!important;}
+
+/*blog styling*/
+
+/*change colour of links in posts*/
+body.single-post .entry-content a {
+    color: #232345!important;
+    text-decoration: underline!important;
+}
+
+@media only screen and (min-width: 768px){
+.custom_blog .et_pb_post {
+    min-height: 595px;
+    max-height: 595px;
+}
+}
+
+body.post-template-default.single.single-post article p a 
+{ color:#171730!important;
+text-decoration: underline!important;
+}
+
+form#commentform a 
+{ color:#171730!important;
+text-decoration: underline!important;
+}
+
+
+/*New contact form confirmation message*/
+
+.wpforms-confirmation-container-full {
+    color: #fff!important;
+    background: #6921ce!important;
+    border: 1px solid #00ffbb!important;
+}
+
+/*Place holder for various forms*/
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+}
+
+/*my account page stlying*/
+body.woocommerce-account .entry-content {
+    background-color: #13ffbd;
+    padding: 10px 20px;
+    color: #232146!important;
+    border: 2px solid #232146;
+}
+
+body.woocommerce-account .entry-content a {
+    text-decoration: underline;
+}
+
+body.woocommerce-account .entry-content h2 {
+color:#232146!important;
+padding-top: 10px;
+ margin-bottom: -10px;
+}
+
+body.woocommerce-account.entry-content thead th, .entry-content tr th {
+    padding: 9px 24px;
+    color: #232146;
+    font-weight: 700;
+}
+
+body.woocommerce-account.entry-content a.woocommerce-Button.button {
+    border: solid 2px #232047!important;
+}
+
+body.woocommerce-account nav.woocommerce-MyAccount-navigation a, body.woocommerce-account .woocommerce-MyAccount-content a
+{ color: #232047!important;}
+
+body.woocommerce-account{color:#232146!important;}
+
+td.woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-number a { color: #232146!important;}
+td.woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions a { color: #232146!important;}
+a.woocommerce-button.woocommerce-button--next.woocommerce-Button.woocommerce-Button--next.button { color: #232146!important;}
+p.woocommerce-LostPassword.lost_password a {color: #232047!important;}
+.woocommerce-privacy-policy-text a {color: #232047!important;}
+
+
+/*Pop up*/
+
+div#sgpb-popup-dialog-main-div { border: 2px solid #13ffbd!important;}
