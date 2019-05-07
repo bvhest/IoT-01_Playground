@@ -13,3 +13,5 @@ Before we begin the next section, you might want another application handy—a s
   * [Node-RED](https://nodered.org/) can also connect to an MQTT broker (Web; Windows/Mac/Linux)
 
 Using one isn’t strictly necessary, but will aid experimentation
+
+Source: taken from [micropython-on-esp32-part-2](https://boneskull.com/micropython-on-esp32-part-2/)
