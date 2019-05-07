@@ -11,6 +11,7 @@
 import time
 from umqtt.robust import MQTTClient
 from temperature import TemperatureSensor
+import json
 
 class TemperatureClient:
     """
@@ -47,12 +48,18 @@ class TemperatureClient:
 
         self.client.connect()
 
-    def publishTemperature(self):
+def publishTemperature(self):
         """
-        Reads the current temperature and publishes it on the configured topic.
+        Reads the current temperature and publishes a JSON payload on the
+        configured topic, e.g., `{"unit": "F", "degrees": 72.5}`
         """
         t = self.sensor.read_temp(self.fahrenheit)
-        self.client.publish(self.topic, str(t))
+        payload = dict(degrees=t)
+        if self.fahrenheit:
+            payload['unit'] = 'F'
+        else:
+            payload['unit'] = 'C'
+        self.client.publish(self.topic, json.dumps(payload))
 
     def start(self, interval=60):
         """
