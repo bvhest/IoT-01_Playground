@@ -1,0 +1,10 @@
+# PySense
+
+## Introduction
+
+See 
+
+  * [Pysense](https://github.com/pycom/pycom-micropython-sigfox/blob/master/docs/pycom_esp32/tutorial/includes/pysense-start.rst)
+  * Core-electronics [Pycom Pysense Getting Started Guide](https://core-electronics.com.au/tutorials/pycom-pysense-getting-started.html)
+  * start-IoT [Pysense Quick Start Guide](https://startiot.telenor.com/learning/pysense-quick-start-guide/)
+  * [Pycom LoPy + PySense Cayenne LPP code examples](https://forum.loraserver.io/t/pycom-lopy-pysense-cayenne-lpp-code-examples/692)
