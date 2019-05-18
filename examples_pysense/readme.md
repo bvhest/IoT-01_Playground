@@ -12,4 +12,7 @@ See
 
   * [Pycom Pysense quick start guide](https://startiot.telenor.com/learning/pysense-quick-start-guide/)
   * [Pycom LoPy + PySense Cayenne LPP code examples](https://forum.loraserver.io/t/pycom-lopy-pysense-cayenne-lpp-code-examples/692)
+  * [Pycom LoPy + PySense Cayenne LPP code examples](https://forum.loraserver.io/t/pycom-lopy-pysense-cayenne-lpp-code-examples/692)
+  * [Pycom Pysense quick start guide](https://startiot.telenor.com/learning/pysense-quick-start-guide/)
+  * [example application for LoPy device reading PySense sensor data and sending this over LoRaWAN using Cayenne LPP encoding](https://forum.loraserver.io/t/pycom-lopy-pysense-cayenne-lpp-code-examples/692)
   * [Connecting Pycom devices to Watson IoT platform](https://developer.ibm.com/recipes/tutorials/connecting-pycom-devices-to-watson-iot-platform/)
