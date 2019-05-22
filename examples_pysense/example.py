@@ -19,26 +19,28 @@ si = SI7006A20(py)
 lt = LTR329ALS01(py)
 li = LIS2HH12(py)
 
-# on-board battery voltage:
-print("Battery voltage: " + str(py.read_battery_voltage()))
+while True:
+    # on-board battery voltage:
+    print("Battery voltage: " + str(py.read_battery_voltage()))
 
-# MPL3115A2-sensor: temperature & pressure reading, next pressure converted into altitude:
-print("MPL3115A2 temperature: " + str(mpp.temperature()))
-print("Pressure: " + str(mpp.pressure()))
-mp = MPL3115A2(py, mode = ALTITUDE) # Returns height in meters. Mode may also be set to PRESSURE, returning a value in Pascals
-print("Altitude: " + str(mp.altitude()))
+    # MPL3115A2-sensor: temperature & pressure reading, next pressure converted into altitude:
+    print("MPL3115A2 temperature: " + str(mpp.temperature()))
+    print("Pressure: " + str(mpp.pressure()))
+    mp = MPL3115A2(py, mode = ALTITUDE) # Returns height in meters. Mode may also be set to PRESSURE, returning a value in Pascals
+    print("Altitude: " + str(mp.altitude()))
 
-# SI7006A20-sensor: temperature & humidity reading, next (derived) dewpoint and some unknown 'Humidity Ambient':
-print("Temperature: " + str(si.temperature()) + " deg C")
-print("Relative Humidity: " + str(si.humidity()) + " %RH")
-print("Dew point: " + str(si.dew_point()) + " deg C")
-t_ambient = 24.4
-print("Humidity Ambient for " + str(t_ambient) + " deg C is " + str(si.humid_ambient(t_ambient)) + "%RH")
+    # SI7006A20-sensor: temperature & humidity reading, next (derived) dewpoint and some unknown 'Humidity Ambient':
+    print("Temperature: " + str(si.temperature()) + " deg C")
+    print("Relative Humidity: " + str(si.humidity()) + " %RH")
+#    print("Dew point: " + str(si.dew_point()) + " deg C")
+#    t_ambient = 24.4
+#    print("Humidity Ambient for " + str(t_ambient) + " deg C is " + str(si.humid_ambient(t_ambient)) + "%RH")
 
-# LTR329ALS01-sensor: light intensity (lux) for red & blue channels:
-print("Light (channel Blue lux, channel Red lux): " + str(lt.light()))
+    # LTR329ALS01-sensor: light intensity (lux) for red & blue channels:
+    print("Light (channel Blue lux, channel Red lux): " + str(lt.light()))
 
-# LIS2HH12-sensor: acceleration, roll and pitch:
-print("Acceleration: " + str(li.acceleration()))
-print("Roll: " + str(li.roll()))
-print("Pitch: " + str(li.pitch()))
+    # LIS2HH12-sensor: acceleration, roll and pitch:
+    print("Acceleration: " + str(li.acceleration()))
+    print("Roll: " + str(li.roll()))
+    print("Pitch: " + str(li.pitch()))
+    time.sleep(30)
