@@ -23,8 +23,8 @@ RANDOMS_INTERVAL = 5000     # milliseconds
 last_random_sent_ticks = 0  # milliseconds
 
 # Wireless network
-WIFI_SSID = "IoT"
-WIFI_PASS = "Core123698745+" # No this is not our regular password. :)
+WIFI_SSID = "onsVHifi"
+WIFI_PASS = "FF41A972T3" # No this is not our regular password. :)
 
 # Adafruit IO (AIO) configuration
 AIO_SERVER = "io.adafruit.com"
@@ -62,8 +62,14 @@ pycom.rgbled(0xff0000)  # Status red = not working
 wlan = WLAN(mode=WLAN.STA)
 wlan.connect(WIFI_SSID, auth=(WLAN.WPA2, WIFI_PASS), timeout=5000)
 
+print("Connecting to Wifi")
 while not wlan.isconnected():    # Code waits here until WiFi connects
     machine.idle()
+    pycom.rgbled(0x140000)
+    time.sleep(2.5)
+    pycom.rgbled(0x000000)
+    time.sleep(1.0)
+    print('Not yet joined...')
 
 print("Connected to Wifi")
 pycom.rgbled(0xffd7000) # Status orange: partially working

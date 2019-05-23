@@ -1,3 +1,8 @@
+#
+# example application for LoPy device reading PySense sensor data and sending this over LoRaWAN using Cayenne LPP encoding
+#
+# source: https://forum.loraserver.io/t/pycom-lopy-pysense-cayenne-lpp-code-examples/692
+#
 import socket
 import time
 import binascii
