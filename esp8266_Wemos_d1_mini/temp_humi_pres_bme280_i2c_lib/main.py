@@ -61,8 +61,10 @@ led.off()
 # Initialise the i2c interface.
 # pin 5 (= D1) SCL naar BME280-SCL.
 # pin 4 (= D2) SDA naar BME280-SDA.
-i2c = I2C(sda=Pin(4), scl=Pin(5))
-bme = BME280_I2C(i2c=i2c)
+i2cbus = I2C(sda=Pin(4), scl=Pin(5))
+i2cbus.scan()
+
+bme = BME280_I2C(i2c=i2cbus)
 
 # double blink
 led.on()

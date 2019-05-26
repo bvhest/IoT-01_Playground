@@ -1,0 +1,8 @@
+# configuration file for iot-node
+
+# WiFi
+wifi_network = "mynetwork"
+wifi_passwd = "mypassword"
+
+# mqtt
+mqtt_server = "mymqttserver.nl"
