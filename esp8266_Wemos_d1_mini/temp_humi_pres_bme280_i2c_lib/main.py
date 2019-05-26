@@ -16,9 +16,18 @@
 #   https://core-electronics.com.au/projects/thingspeak-temperature-pressure-logger
 #
 # MicroPython library voor de BME280 en ESP2866 gevonden op GitHub:
-#   https://github.com/robert-hh/BME280
+#   https://github.com/triplepoint/micropython_bme280_i2c
 #
-# BvH, 25-05-2019
+# upload files to device:
+#   ampy --port /dev/ttyUSB0 put main.py
+#   ampy --port /dev/ttyUSB0 put bme280_i2c.py
+#
+# open console en start programma
+#   screen /dev/ttyUSB0 115200
+# type enter-toets
+# en type cntrl-D
+#
+# BvH, 26-05-2019
 #
 
 

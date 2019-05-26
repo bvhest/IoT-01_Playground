@@ -1,5 +1,9 @@
 # Wemos D1 Mini en BME280 meteo station
 
+## Wemos D1 Mini pinout
+
+![pinout](esp8266-wemos-d1-mini-pinout.png)
+
 ## BME280 library
 
   - https://github.com/triplepoint/micropython_bme280_i2c
