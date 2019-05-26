@@ -1,4 +1,5 @@
 # IoT-playground
+
 Code om te leren werken met micropython, micro-controllers, LoRa en een aantal sensoren.
 
 # Doelstellingen
