@@ -296,15 +296,10 @@ class BME280_I2C:
         # Be sure to call self._compensate_temperature() first, as it sets a
         # global "fine" calibration value for the other two compensation
         # functions
-#        return {
-#            "temperature": self._compensate_temperature(uncompensated_data['temperature']),
-#            "pressure":    self._compensate_pressure(uncompensated_data['pressure']),
-#            "humidity":    self._compensate_humidity(uncompensated_data['humidity']),
-#        }
         return {
-            self._compensate_temperature(uncompensated_data['temperature']),
-            self._compensate_humidity(uncompensated_data['humidity']),
-            self._compensate_pressure(uncompensated_data['pressure'])
+            "temperature": self._compensate_temperature(uncompensated_data['temperature']),
+            "pressure":    self._compensate_pressure(uncompensated_data['pressure']),
+            "humidity":    self._compensate_humidity(uncompensated_data['humidity']),
         }
 
     def _read_uncompensated_data(self):
@@ -552,5 +547,6 @@ class BME280_I2C:
             humidity = humidity_max
 
         return humidity / 1024
+
 
 

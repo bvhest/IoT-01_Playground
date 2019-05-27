@@ -39,10 +39,33 @@
 from machine import Pin, I2C
 from time import sleep
 #
-# this script assumes the default connection of the I2C bus
+# The bme280_i2c library assumes the default connection of the I2C bus
 # On Wymos D1 mini devices that is SCL-to-D1 (pin5), SDA-to-D2 (pin4).
 #
 import bme280_i2c
+
+# Variabelen:
+temp_min = 100
+temp_max = 0
+pres_min = 10000
+pres_max = 0
+humi_min = 100
+humi_max = 0
+
+# Functies:
+def do_tripple_blink(n=3):
+    # tripple blink
+    for x in range(n):
+        led.on()
+        sleep(0.5)
+        led.off()
+
+def update_measurements():
+    # how to deal with a 'dict'? 
+    # Example from https://www.tutorialspoint.com/python/python_dictionary.htm
+    # dict = {'Name': 'Zara', 'Age': 7, 'Class': 'First'}
+    # print "dict['Name']: ", dict['Name']
+    values = 
 
 # INITIALISATIE:
 #
@@ -52,34 +75,28 @@ import bme280_i2c
 # see pinout on https://escapequotes.net/esp8266-wemos-d1-mini-pins-and-diagram/
 # pin 16 = D0 (naar LED)
 led = Pin(16, Pin.OUT)
-
-# single blink
-led.on()
-sleep(0.5)
-led.off()
+# show succesfull
+do_tripple_blink()
 
 # Initialise the i2c interface.
 # pin 5 (= D1) SCL naar BME280-SCL.
 # pin 4 (= D2) SDA naar BME280-SDA.
 i2cbus = I2C(sda=Pin(4), scl=Pin(5))
 i2cbus.scan()
-
+# Initialise the Bosch temperature/humidity/pressure sensor.
 bme = BME280_I2C(i2c=i2cbus)
-
-# double blink
-led.on()
-sleep(0.5)
-led.off()
-led.on()
-sleep(0.5)
-led.off()
+# show succesfull
+do_tripple_blink()
 
 # All in an endless loop:
 while True:
     # So now we need to turn on the LED, and it is as easy as this!
     led.on()
     # show BME280-measurements
-    print(bme.get_measurement())
+    
+    print('temperature : ' + values['temperature'])
+    print('humidity    : ' + values['humidity'])
+    print('pressure    : ' + values['pressure'])
     # better version:
     #values = read_compensated_data(result = None)
     # wait
@@ -88,3 +105,4 @@ while True:
     led.off()
     # wait and measure approx. every 10 secs
     sleep(9.5)
+
