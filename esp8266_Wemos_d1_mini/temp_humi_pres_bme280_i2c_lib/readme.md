@@ -8,6 +8,20 @@
 
   - https://github.com/triplepoint/micropython_bme280_i2c
 
+## Adafruit IO account & feed
+
+Feed name: weerdata_esp8266_bme280
+Feed Key : weerdata-esp8266-bme280
+
+**Current Endpoints**:
+
+Web = https://io.adafruit.com/uden/feeds/weerdata-esp8266-bme280
+
+API = https://io.adafruit.com/api/v2/uden/feeds/weerdata-esp8266-bme280
+
+MQTT by Key = uden/feeds/weerdata-esp8266-bme280
+
+
 ## Example projects
 
   - https://github.com/arendst/Sonoff-Tasmota/wiki/Wemos-D1-Mini-and-BME280-Temperature,-Humidity-and-Pressure-Sensor

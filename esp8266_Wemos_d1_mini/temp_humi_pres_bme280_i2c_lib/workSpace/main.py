@@ -61,11 +61,11 @@ def do_tripple_blink(n=3):
         led.off()
 
 def update_measurements():
-    # how to deal with a 'dict'? 
+    # how to deal with a 'dict'?
     # Example from https://www.tutorialspoint.com/python/python_dictionary.htm
     # dict = {'Name': 'Zara', 'Age': 7, 'Class': 'First'}
     # print "dict['Name']: ", dict['Name']
-    values = 
+    values = bme.read_compensated_data(result = None)
 
 # INITIALISATIE:
 #
@@ -88,21 +88,61 @@ bme = BME280_I2C(i2c=i2cbus)
 # show succesfull
 do_tripple_blink()
 
+# setup MQTT connection
+def sub_cb(topic, msg):
+    print((topic, msg))
+    if topic == b'notification' and msg == b'received':
+        print('ESP8266-wijngaar-Achthoeven received a mqtt-message!')
+
+def connect_and_subscribe():
+    global client_id, mqtt_server, topic_sub
+    client = MQTTClient(client_id, mqtt_server)
+    client.set_callback(sub_cb)
+    client.connect()
+    client.subscribe(topic_sub)
+    print('Connected to %s mqtt-broker, subscribed to %s topic' % (mqtt_server, topic_sub))
+    return client
+
+def restart_and_reconnect():
+    print('Failed to connect to mqtt-broker. Reconnecting...')
+    time.sleep(10)
+    machine.reset()
+
+try:
+    client = connect_and_subscribe()
+except OSError as e:
+    print('Failed connecting to mqtt-broker. Error=' + e)
+    restart_and_reconnect()
+
+
 # All in an endless loop:
 while True:
     # So now we need to turn on the LED, and it is as easy as this!
     led.on()
+    # retrieve BME280-measurements:
+    update_measurements()
     # show BME280-measurements
-    
     print('temperature : ' + values['temperature'])
     print('humidity    : ' + values['humidity'])
     print('pressure    : ' + values['pressure'])
+    payload = values['temperature'] + ',' + values['humidity'] + ',' + values['pressure']
     # better version:
     #values = read_compensated_data(result = None)
     # wait
     sleep(0.5)
     # and turn off the LED
     led.off()
-    # wait and measure approx. every 10 secs
-    sleep(9.5)
+    # once a minute, send a message with the data to the mqtt broker
+    try:
+        client.check_msg()
+        if (time.time() - last_message) > message_interval:
+            msg = b'measurement #%d' % counter
+#            msg = b'measurement #%d' + payload % counter
+            client.publish(topic_pub, msg)
+            last_message = time.time()
+            counter += 1
+    except OSError as e:
+        restart_and_reconnect()
 
+    # wait and measure approx. every 15 secs
+    sleep(measure_interval-0.5)
