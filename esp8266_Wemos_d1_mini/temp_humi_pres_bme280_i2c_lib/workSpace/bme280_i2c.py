@@ -288,8 +288,8 @@ class BME280_I2C:
 
     def get_measurement(self):
         """
-        Return a set of measurements in decimal value, compensated with the
-        sensor's stored calibration data.
+        Return a set of measurements (temperature, humidity, pressure) in decimal value,
+        compensated with the sensor's stored calibration data.
         """
         uncompensated_data = self._read_uncompensated_data()
 
@@ -552,4 +552,5 @@ class BME280_I2C:
             humidity = humidity_max
 
         return humidity / 1024
+
 
