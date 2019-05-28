@@ -28,12 +28,29 @@
 # the GPIO pins. We need to use a wait-time in the loop and import the sleep function from the
 # time library.
 from machine import Pin, I2C
-from time import sleep
+import time
+# using mqtt for exchanging data
+from umqttsimple import MQTTClient
 #
 # this script assumes the default connection of the I2C bus
 # On pycom devuces that is P9 = SDA, P10 = scl
 #
 import bme280_float
+
+# Functies:
+def do_blink(n=3):
+    # tripple blink
+    for x in range(n):
+        led.on()
+        time.sleep(0.5)
+        led.off()
+
+def update_measurements():
+    # how to deal with a 'dict'?
+    # Example from https://www.tutorialspoint.com/python/python_dictionary.htm
+    # dict = {'Name': 'Zara', 'Age': 7, 'Class': 'First'}
+    # print "dict['Name']: ", dict['Name']
+    return(bme.values)
 
 # INITIALISATIE:
 #
@@ -43,37 +60,69 @@ import bme280_float
 # see pinout on https://escapequotes.net/esp8266-wemos-d1-mini-pins-and-diagram/
 # pin 16 = D0 (naar LED)
 led = Pin(16, Pin.OUT)
-
-# single blink
-led.on()
-sleep(0.5)
-led.off()
+# show succesfull
+do_blink()
 
 # Initialise the i2c interface. We use SCL-to-D1, SDA-to-D2.
 # pin 5 (= D1) SCL naar BME280-SCL.
 # pin 4 (= D2) SDA naar BME280-SDA.
 i2c = I2C(sda=Pin(4), scl=Pin(5))
 bme = bme280_float.BME280(i2c=i2c)
+# show succesfull
+do_blink()
 
-# double blink
-led.on()
-sleep(0.5)
-led.off()
-led.on()
-sleep(0.5)
-led.off()
+# setup MQTT connection
+def sub_cb(topic, msg):
+    print((topic, msg))
+    if topic == b'notification' and msg == b'received':
+        print('ESP8266-wijngaar-Achthoeven received a mqtt-message!')
+
+def connect_and_subscribe():
+    global client_id, mqtt_server, topic_sub
+    client = MQTTClient(client_id, mqtt_server)
+    client.set_callback(sub_cb)
+    client.connect()
+    client.subscribe(topic_sub)
+    print('Connected to %s mqtt-broker, subscribed to %s topic' % (mqtt_server, topic_sub))
+    return client
+
+def restart_and_reconnect():
+    print('Failed to connect to mqtt-broker. Reconnecting...')
+    time.sleep(10)
+    machine.reset()
+
+try:
+    client = connect_and_subscribe()
+except OSError as e:
+    print('Failed connecting to mqtt-broker. Error=' + e)
+    restart_and_reconnect()
+
+# show succesfull
+do_blink()
 
 # All in an endless loop:
 while True:
-    # So now we need to turn on the LED, and it is as easy as this!
-    led.on()
+    # retrieve BME280-measurements:
+    payload = update_measurements()
+    # show succesfull
+    do_blink(1)
     # show BME280-measurements
-    print(bme.values)
+#    payload = values
+    print(payload)
     # better version:
     #values = read_compensated_data(result = None)
-    # wait
-    sleep(0.5)
-    # and turn off the LED
-    led.off()
-    # wait and measure approx. every 10 secs
-    sleep(9.5)
+
+    # once a minute, send a message with the data to the mqtt broker
+    try:
+        client.check_msg()
+        if (time.time() - last_message) > message_interval:
+            msg = b'measurement #%d' % counter
+#            msg = b'measurement #%d' + payload % counter
+            client.publish(topic_pub, msg)
+            last_message = time.time()
+            counter += 1
+    except OSError as e:
+        restart_and_reconnect()
+
+    # wait and measure approx. every 15 secs
+    time.sleep(measure_interval-0.5)

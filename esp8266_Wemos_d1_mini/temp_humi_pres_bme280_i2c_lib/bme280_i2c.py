@@ -552,4 +552,3 @@ class BME280_I2C:
             humidity = humidity_max
 
         return humidity / 1024
-

@@ -38,6 +38,8 @@
 # time library.
 from machine import Pin, I2C
 from time import sleep
+# using mqtt for exchanging data
+from umqttsimple import MQTTClient
 #
 # The bme280_i2c library assumes the default connection of the I2C bus
 # On Wymos D1 mini devices that is SCL-to-D1 (pin5), SDA-to-D2 (pin4).
@@ -45,12 +47,12 @@ from time import sleep
 import bme280_i2c
 
 # Variabelen:
-temp_min = 100
-temp_max = 0
-pres_min = 10000
-pres_max = 0
-humi_min = 100
-humi_max = 0
+#temp_min = 100
+#temp_max = 0
+#pres_min = 10000
+#pres_max = 0
+#humi_min = 100
+#humi_max = 0
 
 # Functies:
 def do_tripple_blink(n=3):
