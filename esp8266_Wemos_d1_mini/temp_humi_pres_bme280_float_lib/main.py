@@ -129,8 +129,6 @@ while True:
     # show succesfull
     do_blink(1)
 
-    print('measurements : ' + str(humPresTemp['temperature']))
-    print('measurements : ' + str(soilMoisture['soilmoisture']))
     # show BME280- and SZYTF-measurements
     payload = str(humPresTemp['temperature']) + ',' + str(humPresTemp['humidity']) + ',' + str(humPresTemp['pressure']) + ',' + str(soilMoisture['soilmoisture'])
     print('measurements : ' + payload)
@@ -139,8 +137,9 @@ while True:
     try:
         client.check_msg()
         if (time.time() - last_message) > message_interval:
-            msg = b'measurement #%d' % counter
-#            msg = b'measurement #%d' + payload % counter
+#            msg = b'measurement #%d' % counter
+#            msg = b'measurement #%d,' + payload % counter
+            msg = payload
             client.publish(topic_pub, msg)
             last_message = time.time()
             counter += 1

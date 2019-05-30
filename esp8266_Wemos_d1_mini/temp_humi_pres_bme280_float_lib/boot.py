@@ -18,9 +18,8 @@ import network
 
 ssid = 'onsVHifi'
 password = 'FF41A972T3'
-mqtt_server =  '37.187.106.16' # 'test.mosquitto.org', port = 1883
-#EXAMPLE IP ADDRESS
-#mqtt_server = '192.168.1.144'
+#mqtt_server =  '37.187.106.16' # 'test.mosquitto.org', port = 1883
+mqtt_server = 'broker.hivemq.com' # TCP Port: 1883 , Websocket Port: 8000 
 
 client_id = hexlify(machine.unique_id())
 topic_pub = b'achthoeven/meteo'
