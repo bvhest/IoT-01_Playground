@@ -90,61 +90,52 @@ bme = bme280_float.BME280(i2c=i2c)
 do_blink()
 
 # setup MQTT connection
-def sub_cb(topic, msg):
-    print((topic, msg))
-    if topic == b'notification' and msg == b'received':
-        print('ESP8266-wijngaar-Achthoeven received a mqtt-message!')
-
-def connect_and_subscribe():
+def mqtt_connect_and_subscribe():
     global client_id, mqtt_server, topic_sub
     client = MQTTClient(client_id, mqtt_server)
-    client.set_callback(sub_cb)
     client.connect()
-    client.subscribe(topic_sub)
-    print('Connected to %s mqtt-broker, subscribed to %s topic' % (mqtt_server, topic_sub))
+    print('Verbonden met %s mqtt-broker.' % mqtt_server)
     return client
 
-def restart_and_reconnect():
-    print('Failed to connect to mqtt-broker. Reconnecting...')
+def mqtt_send_message(msg):
+    try:
+        mqtt_client.publish(topic_pub, msg)
+    except OSError as e:
+        mqtt_restart_and_reconnect()
+
+def mqtt_restart_and_reconnect():
     time.sleep(10)
     machine.reset()
 
 try:
-    client = connect_and_subscribe()
+    mqtt_client = mqtt_connect_and_subscribe()
 except OSError as e:
-    print('Failed connecting to mqtt-broker. Error=' + e)
-    restart_and_reconnect()
+    print('Connectie met mqtt-broker is gefaald. Trigger machine.herstart. Error=' + e)
+    mqtt_restart_and_reconnect()
 
 # show succesfull
 do_blink()
 
-# All in an endless loop:
+# oneindige loop om sensoren uit te lezen en meetresultaten door te geven:
 while True:
-    # retrieve BME280-measurements:
+    # ophalen RH-temp-druk-metingen:
     humPresTemp = get_BME280_measurements()
     # show succesfull
     do_blink(1)
-    # retrieve moisture measurement()
+
+    # ophalen bodemvochtigheids-metingen:
     soilMoisture = get_SZYTF_measurements()
     # show succesfull
     do_blink(1)
 
-    # show BME280- and SZYTF-measurements
+    # toon BME280- and SZYTF-meetresultaten
     payload = str(humPresTemp['temperature']) + ',' + str(humPresTemp['humidity']) + ',' + str(humPresTemp['pressure']) + ',' + str(soilMoisture['soilmoisture'])
     print('measurements : ' + payload)
 
-    # once a minute, send a message with the data to the mqtt broker
-    try:
-        client.check_msg()
-        if (time.time() - last_message) > message_interval:
-#            msg = b'measurement #%d' % counter
-#            msg = b'measurement #%d,' + payload % counter
-            msg = payload
-            client.publish(topic_pub, msg)
-            last_message = time.time()
-            counter += 1
-    except OSError as e:
-        restart_and_reconnect()
+    # verstuur meetresultaten naar mqtt-broker als wachttijd is verstreken
+    if (time.time() - time_last_message) > message_interval:
+        mqtt_send_message(payload)
+        time_last_message = time.time()
 
-    # wait and measure approx. every 15 secs
-    time.sleep(measure_interval-0.5)
+    # zet wachttijd
+    time.sleep(measure_interval-1)
