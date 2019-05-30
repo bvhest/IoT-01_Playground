@@ -45,12 +45,21 @@ def do_blink(n=3):
         time.sleep(0.5)
         led.off()
 
-def update_measurements():
-    # how to deal with a 'dict'?
-    # Example from https://www.tutorialspoint.com/python/python_dictionary.htm
-    # dict = {'Name': 'Zara', 'Age': 7, 'Class': 'First'}
-    # print "dict['Name']: ", dict['Name']
+def get_BME280_measurements():
     return(bme.values)
+
+def get_SZYTF_measurements():
+    # SZYTF_capacitieve_bodem_vochtigheidssensor
+    # Capacitieve vochtigheidsensor calibratie:
+    value = 127.5415 - 0.2025 * adc.read()
+    if value > 100:
+        value = 100
+    if value < 0:
+        value = 0
+    # return dict
+    return {
+       "soilmoisture": value
+    }
 
 # INITIALISATIE:
 #
@@ -60,6 +69,15 @@ def update_measurements():
 # see pinout on https://escapequotes.net/esp8266-wemos-d1-mini-pins-and-diagram/
 # pin 16 = D0 (naar LED)
 led = Pin(16, Pin.OUT)
+# show succesfull
+do_blink()
+
+############################################
+# Capacitieve vochtigheidsensor calibratie #
+############################################
+
+# initialiseer ADC op ADC0 (gpio2)
+adc = machine.ADC(0)
 # show succesfull
 do_blink()
 
@@ -103,14 +121,19 @@ do_blink()
 # All in an endless loop:
 while True:
     # retrieve BME280-measurements:
-    payload = update_measurements()
+    humPresTemp = get_BME280_measurements()
     # show succesfull
     do_blink(1)
-    # show BME280-measurements
-#    payload = values
-    print(payload)
-    # better version:
-    #values = read_compensated_data(result = None)
+    # retrieve moisture measurement()
+    soilMoisture = get_SZYTF_measurements()
+    # show succesfull
+    do_blink(1)
+
+    print('measurements : ' + str(humPresTemp['temperature']))
+    print('measurements : ' + str(soilMoisture['soilmoisture']))
+    # show BME280- and SZYTF-measurements
+    payload = str(humPresTemp['temperature']) + ',' + str(humPresTemp['humidity']) + ',' + str(humPresTemp['pressure']) + ',' + str(soilMoisture['soilmoisture'])
+    print('measurements : ' + payload)
 
     # once a minute, send a message with the data to the mqtt broker
     try:
