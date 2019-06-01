@@ -1,5 +1,15 @@
 # Upload data naar internet
 
+## D1 Mini access point (AP)
+
+Mijn D1 Mini heeft volgende ssid:
+
+  * ssid = MicroPython-c4991e
+  * ww = micropythoN
+  * IP address = 192.168.4.1
+
+Zie [ESP8266 Micropython Wifi-troubleshooting](http://docs.micropython.org/en/latest/esp8266/tutorial/intro.html#wifi)
+
 ## Voorbeeld projecten
 
   - [ESP8266 NodeMCU With BME280 Gauges & Chart](https://www.instructables.com/id/ESP8266-NodeMCU-With-BME280-Gauges-Chart/)
