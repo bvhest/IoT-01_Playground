@@ -58,7 +58,7 @@ def get_SZYTF_measurements():
         value = 0
     # return dict
     return {
-       "soilmoisture": value
+       "soilmoisture": round(value, 2)
     }
 
 # INITIALISATIE:

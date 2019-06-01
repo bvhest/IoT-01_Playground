@@ -235,7 +235,7 @@ class BME280:
 #                "{:.2f}%".format(h
         # return dict
         return {
-           "temperature": t,
-           "pressure":    p,
-           "humidity":    h,
+           "temperature": round(t, 2),
+           "pressure":    round(p, 2),
+           "humidity":    round(h, 2),
         }
