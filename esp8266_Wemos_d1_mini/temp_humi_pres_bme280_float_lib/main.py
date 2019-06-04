@@ -18,6 +18,17 @@
 # MicroPython library voor de BME280 en ESP2866 gevonden op GitHub:
 #   https://github.com/robert-hh/BME280
 #
+# upload files to device:
+#   ampy --port /dev/ttyUSB0 put boot.py
+#   ampy --port /dev/ttyUSB0 put main.py
+#   ampy --port /dev/ttyUSB0 put bme280_float.py
+#   ampy --port /dev/ttyUSB0 put umqttsimple.py
+#
+# open console en start programma
+#   screen /dev/ttyUSB0 115200
+# type enter-toets
+# en type cntrl-D
+#
 # BvH, 25-05-2019
 #
 
@@ -91,14 +102,18 @@ do_blink()
 
 # setup MQTT connection
 def mqtt_connect_and_subscribe():
-    global client_id, mqtt_server, topic_sub
-    client = MQTTClient(client_id, mqtt_server)
+    global client_id, mqtt_server, adafruit_user, adafruit_iokey, topic_sub
+    client = MQTTClient(client_id=client_id,
+                    server=mqtt_server,
+                    user=adafruit_user,
+                    password=adafruit_iokey)
     client.connect()
     print('Verbonden met %s mqtt-broker.' % mqtt_server)
     return client
 
 def mqtt_send_message(msg):
     try:
+        print('Verzend mqtt bericht')
         mqtt_client.publish(topic_pub, msg)
     except OSError as e:
         mqtt_restart_and_reconnect()
@@ -110,8 +125,10 @@ def mqtt_restart_and_reconnect():
 try:
     mqtt_client = mqtt_connect_and_subscribe()
 except OSError as e:
-    print('Connectie met mqtt-broker is gefaald. Trigger machine.herstart. Error=' + e)
-    mqtt_restart_and_reconnect()
+#    print('Connectie met mqtt-broker is gefaald. Trigger machine.herstart.')
+    print('Connectie met mqtt-broker is gefaald.')
+    print('Error=' + str(e))
+#    mqtt_restart_and_reconnect()
 
 # show succesfull
 do_blink()
@@ -126,7 +143,7 @@ while True:
     # ophalen bodemvochtigheids-metingen:
     soilMoisture = get_SZYTF_measurements()
     # show succesfull
-    do_blink(1)
+    do_blink(2)
 
     # toon BME280- and SZYTF-meetresultaten
     payload = str(humPresTemp['temperature']) + ',' + str(humPresTemp['humidity']) + ',' + str(humPresTemp['pressure']) + ',' + str(soilMoisture['soilmoisture'])
@@ -136,6 +153,7 @@ while True:
     if (time.time() - time_last_message) > message_interval:
         mqtt_send_message(payload)
         time_last_message = time.time()
+        do_blink()
 
     # zet wachttijd
     time.sleep(measure_interval-1)
