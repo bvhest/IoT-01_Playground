@@ -39,6 +39,7 @@
 # the GPIO pins. We need to use a wait-time in the loop and import the sleep function from the
 # time library.
 from machine import Pin, I2C
+import sys
 import time
 # using mqtt for exchanging data
 from umqttsimple import MQTTClient
@@ -83,10 +84,7 @@ led = Pin(16, Pin.OUT)
 # show succesfull
 do_blink()
 
-############################################
 # Capacitieve vochtigheidsensor calibratie #
-############################################
-
 # initialiseer ADC op ADC0 (gpio2)
 adc = machine.ADC(0)
 # show succesfull
@@ -99,6 +97,9 @@ i2c = I2C(sda=Pin(4), scl=Pin(5))
 bme = bme280_float.BME280(i2c=i2c)
 # show succesfull
 do_blink()
+
+mqtt_feedname = bytes('{:s}/groups/{:s}/csv'.format(adafruit_user, topic_pub), 'utf-8')
+print('mqtt feed : ' + str(mqtt_feedname))
 
 # setup MQTT connection
 def mqtt_connect_and_subscribe():
@@ -114,7 +115,7 @@ def mqtt_connect_and_subscribe():
 def mqtt_send_message(msg):
     try:
         print('Verzend mqtt bericht')
-        mqtt_client.publish(topic_pub, msg)
+        mqtt_client.publish(mqtt_feedname, msg)
     except OSError as e:
         mqtt_restart_and_reconnect()
 
@@ -129,31 +130,38 @@ except OSError as e:
     print('Connectie met mqtt-broker is gefaald.')
     print('Error=' + str(e))
 #    mqtt_restart_and_reconnect()
+    sys.exit()
 
 # show succesfull
 do_blink()
 
 # oneindige loop om sensoren uit te lezen en meetresultaten door te geven:
 while True:
-    # ophalen RH-temp-druk-metingen:
-    humPresTemp = get_BME280_measurements()
-    # show succesfull
-    do_blink(1)
+    try:
+        # ophalen RH-temp-druk-metingen:
+        humPresTemp = get_BME280_measurements()
+        # show succesfull
+        do_blink(1)
 
-    # ophalen bodemvochtigheids-metingen:
-    soilMoisture = get_SZYTF_measurements()
-    # show succesfull
-    do_blink(2)
+        # ophalen bodemvochtigheids-metingen:
+        soilMoisture = get_SZYTF_measurements()
+        # show succesfull
+        do_blink(2)
 
-    # toon BME280- and SZYTF-meetresultaten
-    payload = str(humPresTemp['temperature']) + ',' + str(humPresTemp['humidity']) + ',' + str(humPresTemp['pressure']) + ',' + str(soilMoisture['soilmoisture'])
-    print('measurements : ' + payload)
+        # toon BME280- and SZYTF-meetresultaten
+        payload = 'temp,' + str(humPresTemp['temperature']) + '\nhumi,' + str(humPresTemp['humidity']) + '\ndruk,' + str(humPresTemp['pressure']) + '\nbhum,' + str(soilMoisture['soilmoisture'])
+        print('measurements :\n' + payload)
 
-    # verstuur meetresultaten naar mqtt-broker als wachttijd is verstreken
-    if (time.time() - time_last_message) > message_interval:
-        mqtt_send_message(payload)
-        time_last_message = time.time()
-        do_blink()
+        # verstuur meetresultaten naar mqtt-broker als wachttijd is verstreken
+        if (time.time() - time_last_message) > message_interval:
+            mqtt_send_message(payload)
+            time_last_message = time.time()
+            do_blink()
 
-    # zet wachttijd
-    time.sleep(measure_interval-1)
+        # zet wachttijd
+        time.sleep(measure_interval-1)
+
+    except KeyboardInterrupt:
+        print('Ctrl-C pressed...exiting')
+        mqtt_client.disconnect()
+        sys.exit()

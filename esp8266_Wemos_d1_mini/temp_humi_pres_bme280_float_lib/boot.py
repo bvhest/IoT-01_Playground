@@ -19,7 +19,7 @@ client_id = hexlify(machine.unique_id())
 mqtt_server = b'io.adafruit.com' # TCP Port: 1883 , Websocket Port: 8000
 adafruit_user = b'uden'
 adafruit_iokey = b'51eb40c2e2284473ac689ef1e4351b9e'
-topic_pub = b'uden/feeds/weerdata-esp8266-bme280'
+topic_pub = b'weerdata'
 
 time_last_message = 0
 measure_interval = 10
