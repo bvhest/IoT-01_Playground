@@ -65,7 +65,7 @@ def do_blink(n=3):
 def get_BME280_measurements():
     global t,p,h
     v = bme.values
- 
+
     if bme280_init:
         t = v['temperature']
         p = v['pressure']
@@ -179,6 +179,7 @@ while True:
         if (time.time() - time_last_message) > message_interval:
             mqtt_send_message(payload)
             time_last_message = time.time()
+            print('Bericht naar mqtt-broker verstuurd.')
             do_blink()
 
         # zet wachttijd
