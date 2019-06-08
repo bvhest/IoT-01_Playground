@@ -49,6 +49,11 @@ from umqttsimple import MQTTClient
 #
 import bme280_float
 
+bme280_init = True
+t = 0.0
+p = 0.0
+h = 0.0
+
 # Functies:
 def do_blink(n=3):
     # tripple blink
@@ -58,7 +63,25 @@ def do_blink(n=3):
         led.off()
 
 def get_BME280_measurements():
-    return(bme.values)
+    global t,p,h
+    v = bme.values
+ 
+    if bme280_init:
+        t = v['temperature']
+        p = v['pressure']
+        h = v['humidity']
+    else:
+        t = (t + v['temperature'])/2.0
+        p = (p + v['pressure'])/2.0
+        h = (h + v['humidity'])/2.0
+
+    # return dict
+    return {
+       "temperature": round(t, 2),
+       "pressure":    round(p, 2),
+       "humidity":    round(h, 2),
+    }
+
 
 def get_SZYTF_measurements():
     # SZYTF_capacitieve_bodem_vochtigheidssensor

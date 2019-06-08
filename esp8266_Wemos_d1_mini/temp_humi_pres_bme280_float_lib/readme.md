@@ -11,6 +11,12 @@
   - https://github.com/robert-hh/BME280
 
 
+## One-wire lib
+
+voor 2e temperatuursensor. Zie
+
+  - Pycom [Onewire Driver](https://docs.pycom.io/tutorials/all/owd)
+
 ## Save data to database
 
   - [Python/MicroPython Sensor Logger with Google Sheets](https://www.hackster.io/bobbyleonard84/python-micropython-sensor-logger-with-google-sheets-fd2b93)
@@ -25,6 +31,7 @@ Password:
 
 ## Example projects
 
+  - [Python/MicroPython Sensor Logger with Google Sheets](https://www.dfrobot.com/blog-1107.html)
   - https://github.com/arendst/Sonoff-Tasmota/wiki/Wemos-D1-Mini-and-BME280-Temperature,-Humidity-and-Pressure-Sensor
   - http://www.esp8266learning.com/esp8266-and-bme280-temperature-sensor-example.php
   - http://domoticx.com/esp8266-wifi-temperatuur-luchtvochtigheid-barometer-bme280-arduinoide/

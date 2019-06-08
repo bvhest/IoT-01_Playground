@@ -232,10 +232,10 @@ class BME280:
         t, p, h = self.read_compensated_data()
 
 #        return ("{:.2f}C".format(t), "{:.2f}hPa".format(p/100),
-#                "{:.2f}%".format(h
+#                "{:.2f}%".format(h))
         # return dict
         return {
            "temperature": round(t, 2),
-           "pressure":    round(p, 2),
+           "pressure":    round(p/100.0, 2),
            "humidity":    round(h, 2),
         }
