@@ -55,15 +55,29 @@ p = 0.0
 h = 0.0
 
 # Functies:
-def do_blink(n=3):
-    # tripple blink
+def init_led():
+    # see pinout on https://escapequotes.net/esp8266-wemos-d1-mini-pins-and-diagram/
+    # pin 16 = D0 (naar LED)
+    return(Pin(16, Pin.OUT))
+
+# blink aagegeven aantal keer en met opgegeven frequentie
+def do_blink(n = 3, f = 2):
     for x in range(n):
         led.on()
-        time.sleep(0.5)
+        time.sleep(1.0/f)
         led.off()
 
+def init_bme():
+    # Initialise the i2c interface. We use SCL-to-D1, SDA-to-D2.
+    # pin 5 (= D1) SCL naar BME280-SCL.
+    # pin 4 (= D2) SDA naar BME280-SDA.
+    i2c = I2C(sda = Pin(4), scl = Pin(5))
+    bme = bme280_float.BME280(i2c = i2c)
+    return(bme)
+
 def get_BME280_measurements():
-    global t,p,h
+    global t,p,h,bme280_init
+
     v = bme.values
 
     if bme280_init:
@@ -71,6 +85,7 @@ def get_BME280_measurements():
         p = v['pressure']
         h = v['humidity']
     else:
+        bme280_init = False
         t = (t + v['temperature'])/2.0
         p = (p + v['pressure'])/2.0
         h = (h + v['humidity'])/2.0
@@ -82,11 +97,17 @@ def get_BME280_measurements():
        "humidity":    round(h, 2),
     }
 
+def init_SZYTF_measurements():
+    # Capacitieve vochtigheidsensor calibratie #
+    # initialiseer ADC op ADC0 (gpio2)
+    return(machine.ADC(0))
 
 def get_SZYTF_measurements():
     # SZYTF_capacitieve_bodem_vochtigheidssensor
+    raw = adc.read()
+    print("raw adc value =" + str(raw))
     # Capacitieve vochtigheidsensor calibratie:
-    value = 127.5415 - 0.2025 * adc.read()
+    value = 127.5415 - 0.2025 * raw
     if value > 100:
         value = 100
     if value < 0:
@@ -101,23 +122,15 @@ def get_SZYTF_measurements():
 # Next we create an object called led which will store the GPIO pin that we wish to use, and
 # whether it is an input or an output. In this case it is an output as we wish to light up the LED.
 #
-# see pinout on https://escapequotes.net/esp8266-wemos-d1-mini-pins-and-diagram/
-# pin 16 = D0 (naar LED)
-led = Pin(16, Pin.OUT)
+led = init_led()
 # show succesfull
 do_blink()
 
-# Capacitieve vochtigheidsensor calibratie #
-# initialiseer ADC op ADC0 (gpio2)
-adc = machine.ADC(0)
+adc = init_SZYTF_measurements()
 # show succesfull
 do_blink()
 
-# Initialise the i2c interface. We use SCL-to-D1, SDA-to-D2.
-# pin 5 (= D1) SCL naar BME280-SCL.
-# pin 4 (= D2) SDA naar BME280-SDA.
-i2c = I2C(sda=Pin(4), scl=Pin(5))
-bme = bme280_float.BME280(i2c=i2c)
+bme = init_bme()
 # show succesfull
 do_blink()
 
