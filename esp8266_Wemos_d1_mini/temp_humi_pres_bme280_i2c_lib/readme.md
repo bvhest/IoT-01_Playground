@@ -94,16 +94,13 @@ MQTT by Key = uden/feeds/weerdata-esp8266-bme280
   - http://embedded-lab.com/blog/making-simple-weather-web-server-using-esp8266-bme280/
   - https://robotzero.one/esp8266-and-bme280-temp-pressure-and-humidity-sensor-spi/
   - https://lastminuteengineers.com/bme280-esp8266-weather-station/
+  - https://www.hackster.io/bobbyleonard84/python-micropython-sensor-logger-with-google-sheets-fd2b93
 
 
 ## Issues
 
-### Using Atom+Pymakr as IDE
+  - [instructies uitwerken](https://www.instructables.com/id/The-Super-Easy-Micropython-ESP8266-Guide-No-Guessw/)
 
-Combination is only for Pycom devices.
+## ToDo
 
-### Memory allocation
-
-	File "main.py", line 45, in <module>
-	MemoryError: memory allocation failed, allocating 128 byte
-
+  - [instructies uitwerken](https://www.instructables.com/id/The-Super-Easy-Micropython-ESP8266-Guide-No-Guessw/)
