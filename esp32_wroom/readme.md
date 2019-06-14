@@ -4,7 +4,7 @@
 
 The development board equips the ESP-WROOM-32 module containing **Tensilica Xtensa® Dual-Core 32-bit LX6 microprocessor**. This processor is similar to the ESP8266 but has two CPU cores (can be individually controlled), operates at **80 to 240 MHz** adjustable clock frequency and performs at up to **600 DMIPS** (Dhrystone Million Instructions Per Second).
 
-![esp32 chip](C:\Projects\IoT\IoT-01_Playground\esp32_wroom\ESP32-Hardware-Specifications-ESP-WROOM-32-Chip.jpg)
+![esp32 chip](./docs-hardware/ESP32-Hardware-Specifications-ESP-WROOM-32-Chip.jpg)
 
 ESP-WROOM-32 Chip
 
@@ -29,7 +29,7 @@ for program and data storage) just enough to cope with the large strings that ma
 
 ## Pinout
 
-![esp32 Wroom pinout](ESP32-Development-Board-Pinout.jpg)
+![esp32 Wroom pinout](./docs-hardware/ESP32-Development-Board-Pinout.jpg)
 
 
 
