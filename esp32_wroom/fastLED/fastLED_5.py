@@ -25,5 +25,3 @@ def timer(f, n):
     print(fmt.format(dt * 1e-6, dt/N, N/dt * 1e3))
 
 timer(blink_preload, N)
-
-# 0.459 s,  4.589 uSec/blink :   217.91 kHz/s

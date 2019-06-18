@@ -11,10 +11,12 @@ N = 100000
 #   én compiler directive om native machine code te genereren.
 @micropython.viper
 def blink_unrolled8_viper(n):
-    n //= 8
+    n //= 10
     p = ptr16(stm.GPIOB + stm.GPIO_BSRR)
     r = range(n)
     for i in r:
+        p[0] = 1 << 4 # high
+        p[1] = 1 << 4 # high
         p[0] = 1 << 4 # high
         p[1] = 1 << 4 # high
         p[0] = 1 << 4 # high
@@ -41,7 +43,3 @@ def timer(f, n):
     print(fmt.format(dt * 1e-6, dt/N, N/dt * 1e3))
 
 timer(blink_unrolled8_viper, N)
-
-# viper is een factor 6(!!!) sneller dan de native variant.
-# ... maar niet standaard ondersteund. Vereist een her-compilatie
-#     van de micropython interpreter met een aangepaste vlag.

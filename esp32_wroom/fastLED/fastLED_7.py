@@ -11,11 +11,13 @@ N = 100000
 #   én compiler directive om native machine code te genereren.
 @micropython.native
 def blink_preload_unrolled8_native(n):
-    n //= 8
+    n //= 10
     aan = led.on
     uit = led.off
     r = range(n)
     for i in r:
+        aan()
+        uit()
         aan()
         uit()
         aan()
@@ -42,7 +44,3 @@ def timer(f, n):
     print(fmt.format(dt * 1e-6, dt/N, N/dt * 1e3))
 
 timer(blink_preload_unrolled8_native, N)
-
-# native 20% sneller dan versie 6.
-# ... maar niet standaard ondersteund. Vereist een her-compilatie
-#     van de micropython interpreter met een aangepaste vlag.

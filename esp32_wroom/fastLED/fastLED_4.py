@@ -22,5 +22,3 @@ def timer(f, n):
 
 
 timer(blink_simple, N)
-
-# 3.218 s, 32.181 uSec/blink :    31.07 kHz/s
