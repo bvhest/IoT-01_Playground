@@ -105,7 +105,7 @@ def init_SZYTF_measurements():
 def get_SZYTF_measurements():
     # SZYTF_capacitieve_bodem_vochtigheidssensor
     raw = adc.read()
-    print("raw adc value =" + str(raw))
+    #print("raw adc value =" + str(raw))
     # Capacitieve vochtigheidsensor calibratie:
     value = 127.5415 - 0.2025 * raw
     if value > 100:

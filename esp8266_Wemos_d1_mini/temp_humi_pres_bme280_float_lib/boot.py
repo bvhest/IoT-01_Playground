@@ -22,7 +22,7 @@ adafruit_iokey = b'51eb40c2e2284473ac689ef1e4351b9e'
 topic_pub = b'weerdata'
 
 time_last_message = 0
-measure_interval = 5
+measure_interval = 30
 message_interval = 300 # 900 = één keer per 15 minuten
 
 # setup WiFi connection:
