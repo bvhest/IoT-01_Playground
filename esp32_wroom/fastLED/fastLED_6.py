@@ -10,11 +10,13 @@ N = 100000
 #   mét voorgeladen functie-aanroepen
 #   én 'uitgeschreven' loop.
 def blink_preload_unrolled8(n):
-    n //= 8
+    n //= 10
     aan = led.on
     uit = led.off
     r = range(n)
     for i in r:
+        aan()
+        uit()
         aan()
         uit()
         aan()
@@ -41,5 +43,3 @@ def timer(f, n):
     print(fmt.format(dt * 1e-6, dt/N, N/dt * 1e3))
 
 timer(blink_preload_unrolled8, N)
-
-# 0.378 s,  3.777 uSec/blink :   264.76 kHz/s

@@ -4,7 +4,9 @@ import time
 # (blue) on-board LED:
 led = machine.Pin(2, machine.Pin.OUT)
 
-N = 100000
+# twice the number of the other examples as the led is either switched on or of
+#   inside the loop
+N = 200000
 
 t0 = time.ticks_us()
 
@@ -17,5 +19,3 @@ t1 = time.ticks_us()
 dt = time.ticks_diff(t1, t0)
 fmt = "{:5.3f} s, {:6.3f} uSec/blink : {:8.2f} kHz/s"
 print(fmt.format(dt * 1e-6, dt/N, N/dt * 1e3))
-
-# 4.202 s, 42.019 uSec/blink :    23.80 kHz/s
