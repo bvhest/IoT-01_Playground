@@ -1,7 +1,7 @@
 from machine import Pin, ADC
 import time
 
-print("Initialiseer ADC: adc2, ch0")
+print("Initialiseer ADC: adc1, ch0")
 # see
 #   - https://docs.micropython.org/en/latest/esp32/quickref.html
 #   - https://github.com/loboris/MicroPython_ESP32_psRAM_LoBo/wiki/adc
@@ -15,6 +15,34 @@ adc.atten(adc.ATTN_11DB)
 adc.width(adc.WIDTH_12BIT)
 print(adc.read())
 print("ADC klaar voor gebruik")
+
+# create list for storing adc-values
+N = 4096
+v_adc = [0] * N
+
+# utility-functions for reading adc-values
+def read_adc(n):
+    r = range(n)
+    for i in r:
+        v_adc[i] = adc.read()
+    
+    v_avg = get_average(v_adc)
+    return v_avg
+
+# utility-function to get average of a list 
+def get_average(lst): 
+    return sum(lst) / len(lst) 
+
+# utility-function to get measuring time 
+def timer(f, n):
+    t0 = time.ticks_us()
+    v = f(n)
+    t1 = time.ticks_us()
+    dt = time.ticks_diff(t1, t0)
+    fmt = "{:5.3f} s, {:6.3f} uSec/blink : {:8.2f} kHz/s"
+    print(fmt.format(dt * 1e-6, dt/N, N/dt * 1e3))
+    return v
+
 
 # (blue) LED on board:
 led = Pin(2, Pin.OUT)
@@ -32,12 +60,14 @@ leds = [led1, led2, led3, led4]
 
 while True:
     led.value(not led.value())
-    v = adc.read()
-    print("ADC output = " + str(v))
+#    v = read_adc(N)
+    v = timer(read_adc, N)
+    print("ADC : avg-output = " + str(v))
 #    adc.collect(18000 ,len=9000)
 #    v = adc.collected()
 #    print("ADC output = " + str(v))
-    scaledV = int(round(v / 1024))
+    # waarde die overeenkomt met aantal LEDs van vu-meter
+    scaledV = int(round(0.01 + 5 * v / N))
     print("scaled output = " + str(scaledV))
     led.value(not led.value())
 #    
